@@ -2,6 +2,56 @@
 
 Cursor 规则是控制 AI 代理模型行为的可重用、有作用域的指令。规则允许您为项目或个人提供系统级指导，是编码上下文、偏好或工作流程的持久化方式。
 
+## 快速开始
+
+### 作为 Git Submodule 使用
+
+将本规则库作为 git submodule 添加到您的项目中：
+
+```bash
+git submodule add git@github-nesnilnehc:nesnilnehc/cursor-rules.git .cursor
+```
+
+添加后，您的项目结构将变为：
+
+```text
+your-project/
+  .cursor/              # Cursor 规则目录
+    rules/              # 规则文件
+    README.md           # 规则说明文档
+  src/
+  package.json
+  ...
+```
+
+### 克隆包含 Submodule 的项目
+
+如果您克隆的项目已经包含了这个 submodule，请执行以下命令来初始化：
+
+```bash
+git clone <your-project-url>
+cd <your-project>
+git submodule update --init --recursive
+```
+
+### 更新规则
+
+当规则库有更新时，您可以通过以下命令更新：
+
+```bash
+git submodule update --remote .cursor
+```
+
+或者进入 `.cursor` 目录手动更新：
+
+```bash
+cd .cursor
+git pull origin main
+cd ..
+git add .cursor
+git commit -m "Update cursor rules"
+```
+
 ## 规则工作原理
 
 大语言模型在完成任务之间不会保留记忆。规则通过在提示级别提供持久、可重用的上下文来解决这个问题。当应用规则时，其内容会包含在模型上下文的开始部分，为 AI 提供一致的指导。
