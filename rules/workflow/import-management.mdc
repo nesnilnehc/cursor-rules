@@ -24,6 +24,49 @@ alwaysApply: true
 
 3. **执行验证**: 在代码和引用都更新完成后，再执行**编译、构建或代码检查**来验证更改的正确性。
 
+## 格式规范
+
+### 引用语句格式要求
+
+1. **无空行分隔**: `using` 或 `import` 语句之间不要添加空行，保持紧凑的格式。
+
+   ```csharp
+   // ✅ 正确格式
+   using System;
+   using System.Collections.Generic;
+   using System.Linq;
+   using Microsoft.EntityFrameworkCore;
+   using FuzzyTrain.EntityForge.Core.Domain.Entities;
+   
+   // ❌ 错误格式 - 不要添加空行
+   using System;
+   
+   using System.Collections.Generic;
+   
+   using System.Linq;
+   ```
+
+2. **避免使用别名**: 尽量避免使用 `using` 别名，优先使用完整的命名空间路径。
+
+   ```csharp
+   // ✅ 推荐 - 使用完整命名空间
+   using FuzzyTrain.EntityForge.Domain.Application.Entities;
+   using FuzzyTrain.EntityForge.Domain.Metadata.Entities;
+   using FuzzyTrain.EntityForge.Domain.Internationalization.Entities;
+   
+   // ❌ 不推荐 - 避免使用别名
+   using DomainPlatform = FuzzyTrain.EntityForge.Domain.Application.Entities;
+   using DomainMetadata = FuzzyTrain.EntityForge.Domain.Metadata.Entities;
+   using DomainLocalization = FuzzyTrain.EntityForge.Domain.Internationalization.Entities;
+   ```
+
+3. **特殊情况处理**: 当命名空间过长或存在命名冲突时，可以考虑使用别名，但应添加注释说明原因。
+
+   ```csharp
+   // 仅在命名空间过长或存在冲突时使用别名
+   using DomainInfrastructure = FuzzyTrain.EntityForge.Domain.SchemaGeneration.ValueObjects;
+   ```
+
 ## 目的
 
 遵循此协议可以**最大限度地减少因引用错误导致的编译/运行失败**，从而避免不必要的迭代和调试，显著提高重构效率，并保持代码库的整洁。
