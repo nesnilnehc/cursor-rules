@@ -148,10 +148,45 @@ project/
   - 标点符号的正确使用
   - 用户界面文案规范
 
+- **documentation-management.mdc** - 文档管理策略
+  - 文档创建决策树
+  - 临时文档生命周期
+  - 文档清理策略
+
 - **markdownlint/** - Markdown 格式规范
   - **md009-trailing-spaces.mdc** - 行末空格规则
   - **md031-blanks-around-fences.mdc** - 围栏代码块前后空行规则  
   - **md032-lists-blank-lines.mdc** - 列表前后空行规则
+
+### standards/ - 编码标准规范
+
+包含通用的编码标准和原则（可跨项目复用）：
+
+- **coding-principles.mdc** - 通用编码原则（跨语言）
+  - 代码组织原则
+  - 注释原则
+  - 命名规范
+  - 错误处理
+  - 日志输出
+  - 代码简洁性
+  - 重构原则
+
+- **shell-coding.mdc** - Shell 脚本编码标准
+  - 脚本基本结构
+  - 日志规范（统一使用日志函数）
+  - 函数注释格式
+  - 变量命名和引用
+  - 代码风格
+  - 常见模式
+
+### tools/ - 工具使用说明
+
+包含开发工具的使用注意事项和限制说明：
+
+- **list-dir-dotfiles-limitation.mdc** - list_dir 工具的点文件限制
+  - 工具行为说明
+  - 替代方案
+  - 最佳实践
 
 ## 使用方式
 
@@ -200,19 +235,49 @@ project/
 
 ## 扩展规则
 
-当需要添加新规则时，请按照以下原则：
+### 目录组织原则
+
+按功能领域组织，通过文件名区分具体类型：
 
 - **workflow/** - 开发流程、工作协议类规则
 - **documentation/** - 文档编写、格式规范类规则
-- **templates/** - 代码模板和样板类规则
-- **standards/** - 编码标准和架构决策类规则
+- **standards/** - 通用编码标准（可跨项目复用）
+  - 命名格式: `{language}-{aspect}.mdc` 或 `{aspect}.mdc`
+  - 示例: `coding-principles.mdc`, `shell-coding.mdc`
+- **architecture/** - 项目特定的架构原则和约束
+- **tools/** - 开发工具使用说明和注意事项
 
-每个新规则文件应包含：
+### 规则层次
 
-- 清晰的描述和用途说明
-- 具体的示例和使用场景
-- 适当的触发条件和作用域
-- 版本历史和更新说明
+1. **通用原则** (`standards/coding-principles.mdc`)
+   - 跨语言适用
+   - alwaysApply: true
+   - 所有代码都遵循
+
+2. **语言标准** (`standards/{language}-coding.mdc`)
+   - 特定语言的编码规范
+   - globs: 匹配文件类型
+   - 编辑对应文件时自动应用
+
+3. **项目架构** (`architecture/*.mdc`)
+   - 项目特定的设计约束
+   - globs: 匹配特定文件
+   - 维护架构一致性
+
+### 文件组织
+
+- **平铺式**: `standards/` 和 `architecture/` 下平铺文件，不创建子目录
+- **命名清晰**: 通过文件名自说明（如 `shell-coding` 而不是 `coding`）
+- **单一职责**: 每个规则文件聚焦一个主题
+
+### 规则质量标准
+
+每个规则文件应：
+
+- **简洁**: < 500 行，聚焦核心原则
+- **清晰**: 提供明确的 ✅/❌ 对比
+- **可操作**: 包含检查清单
+- **有价值**: 聚焦原则和标准，不是代码示例集
 
 ## 常见问题
 
